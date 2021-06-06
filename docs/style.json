@@ -1,0 +1,24 @@
+{
+  "glyphs": "mapbox://fonts/mapbox/{fontstack}/{range}.pbf",
+  "layers": [
+    {
+      "id": "one",
+      "source": "v",
+      "source-layer": "one",
+      "type": "fill"
+    }
+  ],
+  "sources": {
+    "v": {
+      "attribution": "国土地理院ベクトルタイル提供実験",
+      "maxzoom": 12,
+      "minzoon": 12,
+      "tiles": [
+        "https://optgeo.github.io/one/zxy/{z}/{x}/{y}.pbf"
+      ],
+      "type": "vector"
+    }
+  },
+  "version": 8,
+  "zoom": 8
+}
