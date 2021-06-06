@@ -3,6 +3,14 @@
   "layers": [
     {
       "id": "one",
+      "paint": {
+        "fill-color": [
+          "rgb",
+          100,
+          100,
+          100
+        ]
+      },
       "source": "v",
       "source-layer": "one",
       "type": "fill"
