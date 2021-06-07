@@ -37,8 +37,17 @@ fetch("https://gsi-cyberjapan.github.io/gsivectortile-mapbox-gl-js/std.json").th
       minzoom: 10,
       maxzoom: 20,
       paint: {
-        "fill-extrusion-color": "rgba(255,187,153,1)",
-        "fill-extrusion-height": ["get", "measuredHeight"]
+        "fill-extrusion-color": [
+	  "rgba",
+	  255,
+	  187,
+          153,
+          0.5
+	],
+        "fill-extrusion-height": [
+	  "get",
+	  "measuredHeight"
+	]
       }
     },
     style.layers.filter(a => a.type === "symbol")
@@ -266,7 +275,6 @@ fetch("https://gsi-cyberjapan.github.io/gsivectortile-mapbox-gl-js/std.json").th
     "type": "fill"
   })
   
-
   // 背景を入れておく。これは、三次元表示したときに空の色が地面に透けないようにするため。
   style.layers.unshift({
     id: "background",
