@@ -12,8 +12,8 @@
 // 地理院　Vector タイルのスタイルを読み出して、そこに独自のデータを付加していく
 fetch("https://gsi-cyberjapan.github.io/gsivectortile-mapbox-gl-js/std.json").then(res => res.json()).then(style => {
   // オーバーズームできるよう、maxzoom を拡張する
-　　 for(layer in style.layers) {
-　　   if (layer.maxzoom == 18) layer.maxzoom = 24
+  for(layer in style.layers) {
+    if (layer.maxzoom >= 17) layer.maxzoom = 24
   }
   
   // PLATEAU タイルを追加する
