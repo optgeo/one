@@ -204,8 +204,8 @@
   "sources": {
     "v": {
       "attribution": "国土地理院ベクトルタイル提供実験",
-      "maxzoom": 12,
-      "minzoon": 12,
+      "maxzoom": 11,
+      "minzoon": 11,
       "tiles": [
         "https://optgeo.github.io/one/zxy/{z}/{x}/{y}.pbf"
       ],
