@@ -1,22 +1,20 @@
-
-BASE_URL = 'https://maps.gsi.go.jp/xyz/experimental_landformclassification1'
-SITE_ROOT = 'https://optgeo.github.io/one'
-SRC_Z = 14
-DST_Z = 12
+require './conf.rb'
 
 desc 'produce vector tiles'
 task :produce do
   cmd = [
-    'curl --output - ',
-    "#{BASE_URL}/mokuroku.csv.gz | ",
-    "zcat | grep -o '^#{SRC_Z}\/.*\.geojson' | ",
-    "parallel --line-buffer 'curl --output - #{BASE_URL}/{} | tippecanoe-json-tool' | ",
+    "curl -O #{BASE_URL}/mokuroku.csv.gz; ",
+    "zcat mokuroku.csv.gz | grep -o '^#{SRC_Z}\/.*\.geojson' | ",
+    "parallel --line-buffer 'curl --output - --silent #{BASE_URL}/{} | ",
+    "tippecanoe-json-tool' | ruby filter.rb | ",
     #"head -n 500000 | ",
     #"tee source.geojsons | ",
-    "tippecanoe --minimum-zoom=#{DST_Z} --maximum-zoom=#{DST_Z} --force ",
-    "--layer=one ",
+    "tippecanoe --minimum-zoom=#{DST_MINZOOM} --maximum-zoom=#{DST_MAXZOOM} ",
+    "--force ",
+    "--coalesce --detect-shared-borders ",
     "-o tiles.mbtiles; tile-join --force --no-tile-compression ",
-    "--output-to-directory=docs/zxy --no-tile-size-limit tiles.mbtiles"
+    "--output-to-directory=docs/zxy --no-tile-size-limit tiles.mbtiles; ",
+    "rm mokuroku.csv.gz"
   ].join
   sh cmd 
 end
@@ -33,5 +31,10 @@ task :style do
     "parse-hocon style.conf > docs/style.json; ",
     "gl-style-validate docs/style.json"
   ].join
+end
+
+desc 'host'
+task :host do
+  sh "budo -d docs"
 end
 
